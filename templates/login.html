@@ -1,0 +1,28 @@
+{% load staticfiles %}
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>登录界面</title>
+</head>
+<body>
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+    <form role="form" action="" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+    	<div>
+    		<label for="username">用户名</label>
+        	<input type="text" name="username" placeholder="name...">
+        </div>
+        <div>
+        	<label  for="password">密码</label>
+        	<input type="text" name="password" placeholder="password...">
+        </div>
+        <button type="submit" class="btn">登录</button>
+    </form>
+<!--- footer --->
+    <div class="footer">
+        <p>Copyright &copy; 软件学院五班 Yi.</p>
+    </div>
+</body>
+</html>

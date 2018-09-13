@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>网上书店</title>
+</head>
+<body>
+    <div class="row">
+        <button class="btn btn-info">
+            <a>目前是第{{ products.number }}页</a>
+        </button>
+        {% if products.has_previous %}
+            <button class="btn btn-info">
+                <a href="?p={{ products.previous_page_number }}">上一页</a>
+            </button>
+        {% endif %}
+    </div>
+    {% for product in products %}
+        {% cycle '<div class="row">' '' '' '' %}
+        <div class="col-xs-3 col-sm-3 col-md-3">
+            <div class="thumbnail">
+                <img src="{{ product.image }}">
+                <div class="caption">
+                    <h4>{{ product.name }}</h4>
+                    <p>NT$ {{ product.price }}</p>
+                    <p>库存: {{ product.stock }}</p>
+                    <p>{{ product.description }}</p>
+                    <button class="btn btn-primary">放入购物车</button>
+                </div>
+            </div>
+        </div>
+        {% cycle '' '' '' '</div>' %}
+    {% empty %}
+        <div class="row">
+            <div class="col-sm-12" align="center">
+                <h3>暂无商品</h3>
+            </div>
+        </div>
+    {% endfor %}
+
+</body>
+</html>
