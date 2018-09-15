@@ -16,9 +16,14 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from mainsite import views
+from bookstore import settings
+from django.contrib.staticfiles.urls import static
 
 urlpatterns = [
+    url(r'^$', views.index),
     url(r'^admin/', admin.site.urls),
+    url(r'^index/', views.index, name='index'),
     url(r'^login/', views.login),
-    url(r'^register/', views.register)
-]
+    url(r'^register/', views.register),
+    url(r'^bookinfo/(\d+)/$', views.bookinfo, name='bookinfo'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -8,6 +8,27 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from mainsite.system.storage import ImageStorage
+
+class Category(models.Model):
+    id = models.IntegerField(primary_key=True)
+    list1 = models.CharField(max_length=255)
+    list2 = models.CharField(max_length=255)
+    list3 = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = 'category'
+
+class User(models.Model):
+    username = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
+    realname = models.CharField(max_length=255, blank=True, null=True)
+    sex = models.IntegerField(blank=True, null=True)
+    age = models.IntegerField(blank=True, null=True)
+    email = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        db_table = 'user'
 
 
 class Book(models.Model):
@@ -20,7 +41,6 @@ class Book(models.Model):
     status = models.CharField(max_length=50)
 
     class Meta:
-        managed = False
         db_table = 'book'
 
 
@@ -32,20 +52,7 @@ class Browser(models.Model):
     lasttime = models.DateTimeField()
 
     class Meta:
-        managed = False
         db_table = 'browser'
-
-
-class Category(models.Model):
-    id = models.IntegerField(primary_key=True)
-    list1 = models.CharField(max_length=255)
-    list2 = models.CharField(max_length=255)
-    list3 = models.CharField(max_length=255)
-    list4 = models.CharField(max_length=255)
-
-    class Meta:
-        managed = False
-        db_table = 'category'
 
 
 class Location(models.Model):
@@ -54,7 +61,6 @@ class Location(models.Model):
     address = models.CharField(max_length=255)
 
     class Meta:
-        managed = False
         db_table = 'location'
 
 
@@ -70,7 +76,6 @@ class Order(models.Model):
     visible = models.CharField(max_length=10)
 
     class Meta:
-        managed = False
         db_table = 'order'
 
 
@@ -83,7 +88,6 @@ class Orderitem(models.Model):
     prices = models.DecimalField(max_digits=15, decimal_places=2)
 
     class Meta:
-        managed = False
         db_table = 'orderitem'
 
 
@@ -92,18 +96,7 @@ class Phone(models.Model):
     phonenum = models.IntegerField()
 
     class Meta:
-        managed = False
         db_table = 'phone'
-
-
-class Picture(models.Model):
-    id = models.IntegerField(primary_key=True)
-    bookid = models.ForeignKey(Book, models.DO_NOTHING, db_column='bookid')
-    imageurl = models.CharField(max_length=255)
-
-    class Meta:
-        managed = False
-        db_table = 'picture'
 
 
 class Presale(models.Model):
@@ -114,7 +107,6 @@ class Presale(models.Model):
     finishtime = models.DateTimeField()
 
     class Meta:
-        managed = False
         db_table = 'presale'
 
 
@@ -127,7 +119,6 @@ class Review(models.Model):
     publishdate = models.DateTimeField()
 
     class Meta:
-        managed = False
         db_table = 'review'
 
 
@@ -141,21 +132,7 @@ class Storage(models.Model):
     restnum = models.IntegerField()
 
     class Meta:
-        managed = False
         db_table = 'storage'
-
-
-class User(models.Model):
-    username = models.CharField(max_length=255)
-    password = models.CharField(max_length=255)
-    realname = models.CharField(max_length=255, blank=True, null=True)
-    sex = models.IntegerField(blank=True, null=True)
-    age = models.IntegerField(blank=True, null=True)
-    email = models.CharField(max_length=255, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'user'
 
 
 class Walfare(models.Model):
@@ -166,5 +143,12 @@ class Walfare(models.Model):
     endtime = models.DateTimeField()
 
     class Meta:
-        managed = False
         db_table = 'walfare'
+
+class Picture(models.Model):
+    id = models.IntegerField(primary_key=True)
+    bookid = models.ForeignKey(Book, models.DO_NOTHING, db_column='bookid')
+    image = models.ImageField(upload_to='img/%Y/%m/%d',storage=ImageStorage())
+
+    class Meta:
+        db_table = 'picture'
