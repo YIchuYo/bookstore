@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block title %}购物车{% endblock %}
+
+{% block content %}
+    <div class='row'>
+        <div class='col-sm-12'>
+            <div class='panel panel-info'>
+                <div class='panel panel-heading'>
+                    <h4>我的购物车</h4>
+                </div>
+                <div class='panel panel-body'>
+                    {% for item in carts %}
+                    {% if forloop.first %}
+                    <table border=1>
+                        <tr>
+                            <td width=300 align=center>产品名称</td>
+                            <td width=100 align=center>单价</td>
+                            <td width=100 align=center>数量</td>
+                            <td width=100 align=center>小计</td>
+                            <td width=100 align=center>删除</td>
+                        </tr>
+                    {% endif %}
+                        <div class='listgroup'>
+                            <div class='listgroup-item'>
+                                <tr>
+                                    <td>{{ item.product.name }}</td>
+                                    <td align=right>{{ item.product.price }}</td>
+                                    <td align=center>{{ item.quantity }}</td>
+                                    <td align=right>{{ item.total_price }}</td>
+                                    <td align=center>
+{#                                        <a href='{% url "removeitem-url" item.book.id %}'><span class='glyphicon glyphicon-trash'></span></a>#}
+                                    </td>
+                                </tr>
+                            </div>
+                        </div>
+                    {% if forloop.last %}
+                    </table>
+                    <button class='btn btn-warning'><a href=''>我要订购</a></button>
+                    {% endif %}
+                    {% empty %}
+                        <em>购物车是空的</em>
+                    {% endfor %}
+                </div>
+                <div class='panel panel-footer'>
+                    总计：{{ cart.summary }}元
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

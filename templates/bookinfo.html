@@ -1,14 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>图书信息</title>
 
-    <link rel="stylesheet" href="../static/css/style.css" type="text/css" />
-</head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<body>
+{% extends 'base.html' %}
+{% block title %}图书信息{% endblock %}
+
+{% block content %}
+
     {# 在bookInfo.html文件的body下添加如下代码 #}
     <div class="thumbnail">
         {% for item in pic %}
@@ -51,7 +47,4 @@
             }
         </script>
     </form>
-</body>
-
-
-</html>
+{% endblock %}

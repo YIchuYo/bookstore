@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mainsite',
+    'cart',
 ]
 
 MIDDLEWARE = [
@@ -150,3 +151,5 @@ LOGGING = {
         },
     },
 }
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True

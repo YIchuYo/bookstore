@@ -1,8 +1,12 @@
  /* reset */
 
-.name{padding:7px 20px 0;height:18px;line-height:18px;overflow: hidden;}
-.author{padding:0 20px;height:24px;line-height:24px;overflow: hidden;color:#aaa;}
-.price{padding-left:20px;line-height:16px;overflow: hidden;font-family:"Arial";font-size:14px;position:relative;height:36px;}
+li.product{width:150px;margin-right:47px;margin-bottom:16px;height:250px;position:relative;overflow: visible;}
+a.imge{width:150px;display:block;height:150px;}
+p.name{padding:20px 0;height:18px;line-height:19px;overflow: hidden;}
+a.name_t{font-size:12px;}
+p.author{padding:0 20px;height:24px;line-height:24px;overflow: hidden;color:#aaa;}
+p.price{padding-left:20px;line-height:16px;overflow: hidden;font-family:"Arial";font-size:14px;position:relative;height:36px;}
+
 
 
 
