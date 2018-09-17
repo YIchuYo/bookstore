@@ -43,7 +43,25 @@
 
 {% block content %}
 
-
+<script>
+$(document).ready(function() {
+{% for book in booklist %}
+    $("#book-{{book.id}}").click(function(){
+        {#var bookid = $("#book-{{book.id}}").data("bookid");#}
+        $.ajax({
+            type: "GET",
+            url: "{% url 'additem-url' book.id 1 book.price %}",
+            {#data: {#}
+            {#    "bookid": {{ book.id }},#}
+            {#    "booknum": 1,#}
+            {#    "bookprice":{{ book.price }},},#}
+            {#success: function(votes) {#}
+                {#alert('已加入购物车');}#}
+        });
+    });
+{% endfor %}
+});
+</script>
 
 
 
@@ -73,10 +91,8 @@
                                 </span>
                             </p>
                             <div align="center">
-                                <button class="btn btn-primary"  >
-                                    <a href="{% url 'additem-url' book.id 1 book.price %}">
+                                <button class="btn btn-primary"  id="book-{{book.id}}">
                                         放入购物车
-                                    </a>
                                 </button>
                             </div>
                     </a>
@@ -92,19 +108,27 @@
         {% endfor %}
     </div>
 
-    <div class="row">
+    <div class="page_button">
+        {% if booklist.has_previous %}
+            <button class="btn btn-info">
+                <a href="?p={{ booklist.previous_page_number }}">上一页</a>
+            </button>
+        {% else %}
+            <button class="btn btn-info">
+                <a href="#">上一页</a>
+            </button>
+        {% endif %}
         <button class="btn btn-info">
             <a>目前是第{{ booklist.number }}页</a>
         </button>
-        {% if items.has_previous %}
-        <button class="btn btn-info">
-            <a href="?p={{ items.previous_page_number }}">上一页</a>
-        </button>
-        {% endif %}
-        {% if items.has_next %}
-        <button class="btn btn-info">
-            <a href="?p={{ items.next_page_number }}">下一页</a>
-        </button>
+        {% if booklist.has_next %}
+            <button class="btn btn-info">
+                <a href="?p={{ booklist.next_page_number }}">下一页</a>
+            </button>
+        {% else %}
+            <button class="btn btn-info">
+                <a href="#">下一页</a>
+            </button>
         {% endif %}
     </div>
 {% endblock %}

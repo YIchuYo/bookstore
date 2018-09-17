@@ -48,7 +48,6 @@ class Migration(migrations.Migration):
                 ('list1', models.CharField(max_length=255)),
                 ('list2', models.CharField(max_length=255)),
                 ('list3', models.CharField(max_length=255)),
-                ('list4', models.CharField(max_length=255)),
             ],
             options={
                 'db_table': 'category',

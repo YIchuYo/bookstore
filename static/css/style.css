@@ -6,8 +6,7 @@ p.name{padding:20px 0;height:18px;line-height:19px;overflow: hidden;}
 a.name_t{font-size:12px;}
 p.author{padding:0 20px;height:24px;line-height:24px;overflow: hidden;color:#aaa;}
 p.price{padding-left:20px;line-height:16px;overflow: hidden;font-family:"Arial";font-size:14px;position:relative;height:36px;}
-
-
+div.page_button{text-align:center;}
 
 
 /*-----start-responsive-design------*/

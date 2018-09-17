@@ -64,7 +64,7 @@ def index(request):
 
     books = Book.objects.get_queryset().order_by('id')
     # 增加分页功能, 10本图书分为一页
-    paginator = Paginator(books, 10)
+    paginator = Paginator(books, 4)
     if request.method == 'GET':
         p = request.GET.get('p')
     else:
@@ -81,8 +81,11 @@ def index(request):
     dict_book['booklist'] = items
     dict_book['usernow'] = usernow
     for i in range(len(items)):
-        items[i].image = Picture.objects.filter(bookid=items[i].id)[0].image
 
+        if Picture.objects.filter(bookid=items[i].id):
+            items[i].image = Picture.objects.filter(bookid=items[i].id)[0].image
+        else:
+            items[i].image = None
     return render(request, 'index.html', dict_book)
 
 
@@ -123,6 +126,7 @@ def add_to_cart(request, book_id, quantity, price):
     print('[11]',book.name ,book_id, quantity, price)
     cart = Cart(request)
     cart.add(book, price, quantity)
+    print(cart.summary())
     return  HttpResponseRedirect(reverse('index'))
 
 
@@ -131,6 +135,27 @@ def remove_from_cart(request, product_id):
     cart = Cart(request)
     cart.remove(book)
     return HttpResponseRedirect(reverse('index'))
+
+
+def order(request):
+    carts = Cart(request)
+    if 'username' in request.session:
+        # 形成订单，形成订单项
+        if request.method == 'POST':
+            print('POST')
+            user = User.objects.get(username=request.session['username'])
+            create_order('Yi','中国',132123123,user,carts)
+
+            carts.clear()
+            return HttpResponseRedirect(reverse('index'))
+        else:
+            pass
+
+        dict_book = {}
+        dict_book['carts'] = carts
+        return render(request, 'order.html', dict_book)
+    else:
+        return HttpResponseRedirect(reverse('login'))
 
 
 def checkUser(request):
@@ -155,3 +180,13 @@ def match_user_password(username, password):
     else:
         return 0
 
+def create_order(name, address, phonenum, buyer, cart):
+    publish_obj = Order.objects.create(status='1', name=name, address=address, phonenum=phonenum, buyer=buyer)
+    for item in cart:
+        Orderitem.objects.create(orderid=publish_obj,
+                                        bookid_id=item.product.id,
+                                        price=item.product.price,
+                                        quantity=item.quantity,
+                                        sale=0.1,
+                                        prices=item.total_price,
+                                )

@@ -1,15 +1,15 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
 
-{% block title %}购物车{% endblock %}
-
+{% block title %}订单列表{% endblock %}
 {% block content %}
+<div class='container'>
     <div class='row'>
         <div class='col-sm-12'>
             <div class='panel panel-info'>
                 <div class='panel panel-heading'>
-                    <h4>我的购物车</h4>
+                    <h4>新订单</h4>
                 </div>
+                <div class='panel panel-body'>
                 <div class='panel panel-body'>
                     {% for item in carts %}
                     {% if forloop.first %}
@@ -19,7 +19,6 @@
                             <td width=100 align=center>单价</td>
                             <td width=100 align=center>数量</td>
                             <td width=100 align=center>小计</td>
-                            <td width=100 align=center>删除</td>
                         </tr>
                     {% endif %}
                         <div class='listgroup'>
@@ -29,24 +28,31 @@
                                     <td align=right>{{ item.product.price }}</td>
                                     <td align=center>{{ item.quantity }}</td>
                                     <td align=right>{{ item.total_price }}</td>
-                                    <td align=center>
-{#                                        <a href='{% url "removeitem-url" item.book.id %}'><span class='glyphicon glyphicon-trash'></span></a>#}
-                                    </td>
                                 </tr>
                             </div>
                         </div>
                     {% if forloop.last %}
                     </table>
-                    <button class='btn btn-warning'><a href="{% url 'order' %}">我要订购</a></button>
+                    <button class='btn btn-warning'><a href='/cart'>回购物车</a></button>
+                    <button class='btn btn-warning'><a href='/'>回首页</a></button>
                     {% endif %}
                     {% empty %}
                         <em>购物车是空的</em>
                     {% endfor %}
                 </div>
+                </div>
                 <div class='panel panel-footer'>
-                    总计：{{ carts.summary }}元
+                     总计：{{ carts.summary }}元
+                     <p>填写以下数据直接下订单</p>
+                    <form action='.' method='POST'>
+                        {% csrf_token %}
+                        <input type='submit' value='直接下订单'>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+
 {% endblock %}

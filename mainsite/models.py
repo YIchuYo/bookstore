@@ -65,15 +65,24 @@ class Location(models.Model):
 
 
 class Order(models.Model):
-    id = models.IntegerField(primary_key=True)
-    ordertime = models.DateTimeField()
-    status = models.CharField(max_length=255)
+    id = models.AutoField(primary_key=True)
+    ordertime = models.DateTimeField(auto_now_add=True)
+    status_CHOICES = (
+        ('1', '待发货'),
+        ('2', '预售等待'),
+        ('3', '运送中'),
+        ('4', '已收货'),
+        ('5', '取消'),
+        ('6', '退货中'),
+        ('7', '退货完成'),
+    )
+    status = models.CharField(max_length=255, choices=status_CHOICES)
     buyer = models.ForeignKey('User', models.DO_NOTHING, db_column='buyer')
     name = models.CharField(max_length=255, blank=True, null=True)
     address = models.CharField(max_length=255)
     phonenum = models.CharField(max_length=255, blank=True, null=True)
     finishtime = models.DateTimeField(blank=True, null=True)
-    visible = models.CharField(max_length=10)
+    visible = models.CharField(max_length=10, default='0')
 
     class Meta:
         db_table = 'order'
