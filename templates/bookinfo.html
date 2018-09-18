@@ -6,19 +6,30 @@
 {% block content %}
 
     {# 在bookInfo.html文件的body下添加如下代码 #}
-    <div class="thumbnail">
-        {% for item in pic %}
-            <img src="{{ item.image.url }}" height="200px" width="200px"><br/>
-        {% empty %}
-            <h3>暂无商品</h3>
-        {% endfor %}
-    <ul>
-        <li>书名：{{ book.name }}</li>
-        <li>作者：{{ book.author }}</li>
-        <li>ISBN：{{ book.isbn }}</li>
-        <li>price：{{ book.price }}</li>
-    </ul>
-    </div>
+{#    <div class="thumbnail">#}
+{#        {% for item in pic %}#}
+{#            <img src="{{ item.image.url }}" height="200px" width="200px"><br/>#}
+{#        {% empty %}#}
+{#            <h3>暂无商品</h3>#}
+{#        {% endfor %}#}
+{#    <ul>#}
+{#        <li>书名：{{ book.name }}</li>#}
+{#        <li>作者：{{ book.author }}</li>#}
+{#        <li>ISBN：{{ book.isbn }}</li>#}
+{#        <li>price：{{ book.price }}</li>#}
+{#    </ul>#}
+{#</div>#}
+        <div class="product">
+            <article> <img class="img-responsive" src="{{ item.image.url }}" alt=""> <span class="sale-tag">100%</span>
+
+              <!-- Content -->
+              <span class="tag">Tablets</span> <a href="#." class="tittle">{{ book.name }}</a>
+              <!-- Reviews -->
+              <p class="rev"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-star"></i> <span class="margin-left-10">5 Review(s)</span></p>
+              <div class="price">{{ book.price }}<span>$200.00</span></div>
+              <a href="#." class="cart-btn"><i class="icon-basket-loaded"></i></a> </article>
+          </div>
+
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <input id="uploadimg"  type="file" name="img">

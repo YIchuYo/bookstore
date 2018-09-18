@@ -60,34 +60,36 @@ def register(request):
 
 def index(request):
 
-    usernow = checkUser(request)
+    if 'p' in request.GET:
+        usernow = checkUser(request)
 
-    books = Book.objects.get_queryset().order_by('id')
-    # 增加分页功能, 10本图书分为一页
-    paginator = Paginator(books, 4)
-    if request.method == 'GET':
-        p = request.GET.get('p')
-    else:
-        p = '1'
-
-    try:
-        items = paginator.page(p)
-    except PageNotAnInteger:
-        items = paginator.page(1)
-    except EmptyPage:
-        items = paginator.page(paginator.num_pages)
-
-    dict_book = {}
-    dict_book['booklist'] = items
-    dict_book['usernow'] = usernow
-    for i in range(len(items)):
-
-        if Picture.objects.filter(bookid=items[i].id):
-            items[i].image = Picture.objects.filter(bookid=items[i].id)[0].image
+        books = Book.objects.get_queryset().order_by('id')
+        # 增加分页功能, 10本图书分为一页
+        paginator = Paginator(books, 4)
+        if request.method == 'GET':
+            p = request.GET.get('p')
         else:
-            items[i].image = None
-    return render(request, 'index.html', dict_book)
+            p = '1'
 
+        try:
+            items = paginator.page(p)
+        except PageNotAnInteger:
+            items = paginator.page(1)
+        except EmptyPage:
+            items = paginator.page(paginator.num_pages)
+
+        dict_book = {}
+        dict_book['booklist'] = items
+        dict_book['usernow'] = usernow
+        for i in range(len(items)):
+
+            if Picture.objects.filter(bookid=items[i].id):
+                items[i].image = Picture.objects.filter(bookid=items[i].id)[0].image
+            else:
+                items[i].image = None
+        return render(request, 'index.html', dict_book)
+    else:
+        return render(request,'index.html')
 
 # 获取书籍信息
 def bookinfo(request, id):
