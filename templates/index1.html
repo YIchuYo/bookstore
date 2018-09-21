@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+{% extends 'base1.html' %}
+{% block title %}网上书店{% endblock %}
+
+{#<body>#}
+{#    <div class="row">#}
+{#        <button class="btn btn-info">#}
+{#            <a>目前是第{{ products.number }}页</a>#}
+{#        </button>#}
+{#        {% if products.has_previous %}#}
+{#            <button class="btn btn-info">#}
+{#                <a href="?p={{ products.previous_page_number }}">上一页</a>#}
+{#            </button>#}
+{#        {% endif %}#}
+{#    </div>#}
+{#    {% for product in products %}#}
+{#        {% cycle '<div class="row">' '' '' '' %}#}
+{#        <div class="col-xs-3 col-sm-3 col-md-3">#}
+{#            <div class="thumbnail">#}
+{#                <img src="{{ product.image }}">#}
+{#                <div class="caption">#}
+{#                    <h4>{{ product.name }}</h4>#}
+{#                    <p>NT$ {{ product.price }}</p>#}
+{#                    <p>库存: {{ product.stock }}</p>#}
+{#                    <p>{{ product.description }}</p>#}
+{#                    <button class="btn btn-primary">放入购物车</button>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        {% cycle '' '' '' '</div>' %}#}
+{#    {% empty %}#}
+{#        <div class="row">#}
+{#            <div class="col-sm-12" align="center">#}
+{#                <h3>暂无商品</h3>#}
+{#            </div>#}
+{#        </div>#}
+{#    {% endfor %}#}
+{##}
+{#</body>#}
+
+
+
+{% block content %}
+
+<script>
+$(document).ready(function() {
+{% for book in booklist %}
+    $("#book-{{book.id}}").click(function(){
+        {#var bookid = $("#book-{{book.id}}").data("bookid");#}
+        $.ajax({
+            type: "GET",
+            url: "{% url 'additem-url' book.id 1 book.price %}",
+            {#data: {#}
+            {#    "bookid": {{ book.id }},#}
+            {#    "booknum": 1,#}
+            {#    "bookprice":{{ book.price }},},#}
+            {#success: function(votes) {#}
+                {#alert('已加入购物车');}#}
+        });
+    });
+{% endfor %}
+});
+</script>
+
+
+
+    <h2>图书架</h2>
+    <div class="container">
+        {% for book in booklist %}
+            {% cycle '<div class="row">' '' '' '' %}
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <div class="thumbnails">
+                    <a class="thumbnail">
+                            <a class="image" href="{{ book.image.url }}">
+                                <img src="{{ book.image.url }}" style="CURSOR: hand" onclick='window.open("{% url 'bookinfo'  book.id  %}")' height="200px" width="200px"><br/>
+                            </a>
+
+                            <p class="name">
+                                <a class="name_t" href="{% url 'bookinfo'  book.id  %}">{{ book.name }}</a>
+                            </p>
+                            <p class="author">
+                                <span class="author_t">
+                                    {{ book.author }}著
+                                </span>
+                            </p>
+                            <p class="price">
+                                <span class="rob">
+                                    <span class="sign"></span>
+                                    <span class="num">{{ book.price }}</span>
+                                </span>
+                            </p>
+                            <div align="center">
+                                <button class="btn btn-primary"  id="book-{{book.id}}">
+                                        放入购物车
+                                </button>
+                            </div>
+                    </a>
+            </div>
+        </div>
+        {% cycle '' '' '' '</div>' %}
+        {% empty %}
+            <div class="row">
+                <div class="col-sm-12" align="center">
+                    <h3>此分类目前没有产品记录</h3>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="page_button">
+        {% if booklist.has_previous %}
+            <button class="btn btn-info">
+                <a href="?p={{ booklist.previous_page_number }}">上一页</a>
+            </button>
+        {% else %}
+            <button class="btn btn-info">
+                <a href="#">上一页</a>
+            </button>
+        {% endif %}
+        <button class="btn btn-info">
+            <a>目前是第{{ booklist.number }}页</a>
+        </button>
+        {% if booklist.has_next %}
+            <button class="btn btn-info">
+                <a href="?p={{ booklist.next_page_number }}">下一页</a>
+            </button>
+        {% else %}
+            <button class="btn btn-info">
+                <a href="#">下一页</a>
+            </button>
+        {% endif %}
+    </div>
+{% endblock %}

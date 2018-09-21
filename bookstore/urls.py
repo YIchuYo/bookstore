@@ -23,14 +23,15 @@ urlpatterns = [
     url(r'^$', views.index),
     url(r'^admin/', include(admin.site.urls), name='admin'),
     url(r'^index/', views.index, name='index'),
+    url(r'^listbooks/', views.listbooks , name='listbooks'),
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^register/$', views.register, name='register'),
     url(r'^bookinfo/(\d+)/$', views.bookinfo, name='bookinfo'),
     url(r'^cart/$', views.cart, name='cart-url'),
     url(r'^additem/(\d+)/(\d+)/(.+)/$', views.add_to_cart, name='additem-url'),
-    # url(r'^removeitem/(\d+)/$', views.remove_from_cart, name='removeitem-url'),
-
+    url(r'^removeitem/(\d+)/$', views.remove_from_cart, name='removeitem-url'),
+    url(r'^removeall',views.remove_all_from_cart, name='removeall-url'),
     url(r'^order/$', views.order, name='order')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

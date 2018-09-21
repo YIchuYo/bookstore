@@ -2,11 +2,164 @@
 
 li.product{width:150px;margin-right:47px;margin-bottom:16px;height:250px;position:relative;overflow: visible;}
 a.imge{width:150px;display:block;height:150px;}
-p.name{padding:20px 0;height:18px;line-height:19px;overflow: hidden;}
+p.name_t{padding:20px 0;height:18px;line-height:19px;overflow: hidden;}
 a.name_t{font-size:12px;}
 p.author{padding:0 20px;height:24px;line-height:24px;overflow: hidden;color:#aaa;}
 p.price{padding-left:20px;line-height:16px;overflow: hidden;font-family:"Arial";font-size:14px;position:relative;height:36px;}
 div.page_button{text-align:center;}
+
+.shopping-cart h2 {
+    color: rgb(51, 62, 72);
+    font-size: 16px;
+}
+
+.shopping-cart table {
+    margin-bottom: 50px;
+    margin-top: 50px;
+    width: 100%;
+}
+
+.shopping-cart tr {
+    border-bottom: 1px solid #ebebeb;
+}
+
+.shopping-cart th {
+    color: #484848;
+    font-weight: 500;
+    padding: 15px;
+    text-transform: uppercase;
+}
+.shopping-cart .button.red {
+    background: #e24347 none repeat scroll 0 0;
+    color: #fff;
+    margin-left: 0;
+}
+.shopping-cart .button {
+    background: #1f1f1f none repeat scroll 0 0;
+    color: #fff;
+    letter-spacing: 1.2px;
+    margin-left: 20px;
+    padding: 10px;
+    text-shadow: 1px 1px 1px #333;
+}
+.shipping-outer {
+    float: left;
+    margin-bottom: 100px;
+    margin-top: 50px;
+    width: 100%;
+}
+.shipping-outer h2 {
+    border-bottom: 2px solid #ebebeb;
+    font-size: 26px;
+    margin-bottom: 50px;
+    padding-bottom: 18px;
+}
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.counttry {
+    margin-bottom: 25px;
+}
+.shipping-outer .lable {
+    float: left;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.shipping-outer input {
+    margin-bottom: 20px;
+    padding: 5px;
+    width: 100%;
+}
+.shipping-outer .lable {
+    float: left;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.size.State {
+    margin: 0;
+}
+.select-option {
+    float: left;
+    width: 50%;
+}
+.State select {
+    border: 1px solid #cccccc;
+    color: #999;
+    padding: 9px 10px;
+}
+.shopping-cart .button2 {
+    background: #1f1f1f none repeat scroll 0 0;
+    color: #fff;
+    float: left;
+    letter-spacing: 1.2px;
+    margin-top: 5px;
+    text-align: center;
+    padding: 10px 20px;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #333;
+    text-transform: uppercase;
+    width: 48%;
+}
+
+
+
+.shipping-outer {
+    float: left;
+    margin-bottom: 100px;
+    margin-top: 50px;
+    width: 100%;
+}
+.shipping-outer h2 {
+    border-bottom: 2px solid #ebebeb;
+    font-size: 26px;
+    margin-bottom: 50px;
+    padding-bottom: 18px;
+}
+
+.shipping-outer li {
+    border-bottom: 1px solid #ebebeb;
+    float: left;
+    margin-bottom: 27px;
+    padding: 0 0 17px;
+    width: 100%;
+}
+.shipping-outer strong {
+    float: right;
+    font-size: 16px;
+    font-weight: 500;
+}
+.shipping-outer li:last-child {
+    border: medium none;
+}
+.shipping-outer li .redbutton {
+    background: #e24347 none repeat scroll 0 0;
+    color: #fff;
+    float: left;
+    font-size: 14px;
+    letter-spacing: 1.2px;
+    margin-bottom: 10px;
+    padding: 10px;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #111;
+    text-transform: uppercase;
+    width: 100%;
+}
+.shipping-outer li a {
+    color: #e24347;
+    text-decoration: underline;
+}
+
+.form-control {
+    box-shadow: none;
+    background: transparent;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    height: 46px;
+    font-size: 16px;
+    font-weight: 300;
+    padding-left: 15px;
+    padding-right: 15px;
+}
 
 #c1{!important;}
 
@@ -142,8 +295,8 @@ section {
 /*=======================================================
       BUTTON
 ========================================================*/
-.btn {
-	background: none;
+button.btn {
+	background: dodgerblue;
 	display: inline-block;
 	font-size: 16px;
 	padding: 9px 40px;

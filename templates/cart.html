@@ -4,49 +4,135 @@
 {% block title %}购物车{% endblock %}
 
 {% block content %}
-    <div class='row'>
-        <div class='col-sm-12'>
-            <div class='panel panel-info'>
-                <div class='panel panel-heading'>
-                    <h4>我的购物车</h4>
-                </div>
-                <div class='panel panel-body'>
-                    {% for item in carts %}
-                    {% if forloop.first %}
-                    <table border=1>
-                        <tr>
-                            <td width=300 align=center>产品名称</td>
-                            <td width=100 align=center>单价</td>
-                            <td width=100 align=center>数量</td>
-                            <td width=100 align=center>小计</td>
-                            <td width=100 align=center>删除</td>
-                        </tr>
-                    {% endif %}
-                        <div class='listgroup'>
-                            <div class='listgroup-item'>
-                                <tr>
-                                    <td>{{ item.product.name }}</td>
-                                    <td align=right>{{ item.product.price }}</td>
-                                    <td align=center>{{ item.quantity }}</td>
-                                    <td align=right>{{ item.total_price }}</td>
-                                    <td align=center>
-{#                                        <a href='{% url "removeitem-url" item.book.id %}'><span class='glyphicon glyphicon-trash'></span></a>#}
-                                    </td>
-                                </tr>
-                            </div>
+
+<!-- 我的JavaScript代码 -->
+<script>
+$(document).ready(function() {
+{% for item in carts %}
+    $("#book-remove-{{ item.product.id }}").click(function(){
+        {#var bookid = $("#book-{{book.id}}").data("bookid");#}
+        $.ajax({
+            type: "GET",
+            url: "{% url 'removeitem-url' item.product.id %}",
+            {#data: {#}
+            {#    "bookid": {{ book.id }},#}
+            {#    "booknum": 1,#}
+            {#    "bookprice":{{ book.price }},},#}
+            {#success: function(votes) {#}
+                {#alert('已加入购物车');}#}
+        });
+    });
+{% endfor %}
+});
+</script>
+    <script>
+$(document).ready(function() {
+$("#removeall").click(function(){
+        {#var bookid = $("#book-{{book.id}}").data("bookid");#}
+        $.ajax({
+            type: "GET",
+            url: "{% url 'removeall-url' %}",
+            {#data: {#}
+            {#    "bookid": {{ book.id }},#}
+            {#    "booknum": 1,#}
+            {#    "bookprice":{{ book.price }},},#}
+            {#success: function(votes) {#}
+                {#alert('已加入购物车');}#}
+        });
+    });
+});
+</script>
+
+
+    <section class="shopping-cart">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                  <h2>您的购物车</h2>
+                  <table>
+                     <tbody><tr>
+                        <th></th>
+                        <th>图书名称</th>
+{#                        <th>Description</th>#}
+                        <th>单价</th>
+                        <th>数量</th>
+                        <th>总价</th>
+                        <th></th>
+                     </tr>
+                     {% for item in carts %}
+                     <tr>
+                        <td><img src="" alt=""></td>
+                        <td><a href="{% url 'bookinfo'  item.product.id  %}">{{ item.product.name }}</a></td>
+                        <td><strong>{{ item.unit_price }}</strong></td>
+                        <td><input type="number" name="quantity" min="1" max="500" value="{{ item.quantity }}"></td>
+                        <td><strong>{{ item.total_price }}</strong></td>
+                        <td>
+                            <a id="book-remove-{{ item.product.id }}">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                     </tr>
+                     {% endfor %}
+                  </tbody></table>
+                  <div class="col-sm-6 col-md-6">
+                     <a href="{% url 'index' %}" class="button red">继续购物</a>
+                  </div>
+                  <div class="col-sm-6 col-md-6 text-right">
+                     <a href="{% url 'cart-url' %}" class="button">更新购物车</a>
+                      <a id="removeall" href="{% url 'removeall-url' %}" class="button">清空购物车</a>
+                  </div>
+            <form role="form" action="{% url 'order' %}" enctype="multipart/form-data" method="post">
+                {% csrf_token %}
+                <div class="col-sm-4 col-md-4">
+                     <div class="shipping-outer">
+                        <h2>收货人</h2>
+                        <div class="row">
+                           <div class="col-md-12 counttry">
+                              <div class="lable">收货人姓名</div>
+                              <input name="order_name" placeholder="" type="text">
+                           </div>
+                            <div class="col-md-12 counttry">
+                              <div class="lable">联系方式</div>
+                              <input name="order_num" placeholder="" type="text">
+                           </div>
                         </div>
-                    {% if forloop.last %}
-                    </table>
-                    <button class='btn btn-warning'><a href="{% url 'order' %}">我要订购</a></button>
-                    {% endif %}
-                    {% empty %}
-                        <em>购物车是空的</em>
-                    {% endfor %}
-                </div>
-                <div class='panel panel-footer'>
-                    总计：{{ carts.summary }}元
-                </div>
-            </div>
+                     </div>
+                  </div>
+                  <div class="col-sm-4 col-md-4">
+                     <div class="shipping-outer">
+                        <h2>收货地址</h2>
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="lable">城市</div>
+                              <input name="order_city" type="text">
+                           </div>
+                            <div class="col-md-6">
+                              <div class="lable">区县</div>
+                              <input name="order_county" type="text">
+                           </div>
+                            <a></a>
+                           <div class="col-md-12">
+                              <div class="lable">详细地址</div>
+                              <input name="order_address" type="text">
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-sm-4 col-md-4">
+                     <div class="shipping-outer">
+                        <h2>总价</h2>
+                        <ul>
+                           <li>共<strong>{{ carts.count }}件商品</strong></li>
+                           <li>总价<strong>{{ carts.summary }}元</strong></li>
+                           <li class="text-center">
+                              <button type="submit" class="redbutton">确定下单</button>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                </form>
+               </div>
         </div>
     </div>
+    </section>
 {% endblock %}

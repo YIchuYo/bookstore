@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="/static/css/style.css">
 <link rel="stylesheet" href="/static/css/responsive.css">
 
-
+{% block loginregister %}{% endblock %}
 <!-- JavaScripts -->
 <script src="/static/js/vendors/modernizr.js"></script>
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -40,9 +40,9 @@
 </head>
 <body>
     {% include "header.html" %}
-    {% if usernow %}
-        欢迎: {{ usernow }}
-    {% endif %}
+{#    {% if usernow %}#}
+{#        欢迎: {{ usernow }}#}
+{#    {% endif %}#}
     {% block content %}{% endblock %}
     <hr>
     {% include "footer.html" %}

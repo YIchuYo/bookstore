@@ -1,29 +1,47 @@
+{% extends 'base.html' %}
 {% load staticfiles %}
 <!DOCTYPE HTML>
-<html>
-<head>
-<title>登录界面</title>
-</head>
-<body>
-    {% if message %}
-        <div>{{ message }}</div>
-    {% endif %}
-    <form role="form" action="" enctype="multipart/form-data" method="post">
-        {% csrf_token %}
-    	<div>
-    		<label for="username">用户名</label>
-        	<input type="text" name="username" placeholder="name...">
-        </div>
-        <div>
-        	<label  for="password">密码</label>
-        	<input type="text" name="password" placeholder="password...">
-        </div>
-        <button type="submit" class="btn">登录</button>
-        <button onclick="location.href='{% url 'register' %}'" type="button" class="btn">注册</button>
-    </form>
-<!--- footer --->
-    <div class="footer">
-        <p>Copyright &copy; 软件学院五班 Yi.</p>
-    </div>
-</body>
-</html>
+{% block title %}登录界面{% endblock %}
+{% block content %}
+
+
+    <div class="tab-content-inner" data-content="login">
+		<form role="form" action="" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+
+			<div class="row form-group">
+				<div class="col-md-3" style="margin-left: 35%;margin-top: 10%">
+					{% if usernow %}
+                        <label>用户已登录</label>
+                        <input type="text" class="form-control" disabled="disabled" placeholder="{{ usernow }}">
+                    {% else %}
+                        <label for="username">Username or Email</label>
+					    <input type="text" class="form-control" id="username" name="username">
+                    {% endif %}
+				</div>
+			</div>
+			<div class="row form-group">
+				<div class="col-md-3" style="margin-left: 35%">
+                    {% if usernow %}
+                    {% else %}
+					    <label for="password">Password</label>
+					    <input type="password" class="form-control" id="password" name="password">
+                    {% endif %}
+				</div>
+			</div>
+
+			<div class="row form-group">
+				<div class="col-md-3" style="margin-left: 35%">
+					{% if usernow %}
+                        <button onclick="location.href='{% url 'logout' %}'" type="button" class="btn">logout</button>
+                    {% else %}
+					    <button type="submit" onclick="location.href='{% url 'login' %}'" class="btn btn-primary btn-lg">Login</button>
+                        <button onclick="location.href='{% url 'register' %}'" type="button" class="btn">register</button>
+                    {% endif %}
+
+				</div>
+			</div>
+		</form>
+	</div>
+
+{% endblock %}

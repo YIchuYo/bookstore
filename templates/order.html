@@ -25,7 +25,7 @@
                             <div class='listgroup-item'>
                                 <tr>
                                     <td>{{ item.product.name }}</td>
-                                    <td align=right>{{ item.product.price }}</td>
+                                    <td align=right>{{ item.unit_price }}</td>
                                     <td align=center>{{ item.quantity }}</td>
                                     <td align=right>{{ item.total_price }}</td>
                                 </tr>
@@ -33,7 +33,7 @@
                         </div>
                     {% if forloop.last %}
                     </table>
-                    <button class='btn btn-warning'><a href='/cart'>回购物车</a></button>
+                    <button class='btn btn-warning'><a href={% url 'cart-url' %}>回购物车</a></button>
                     <button class='btn btn-warning'><a href='/'>回首页</a></button>
                     {% endif %}
                     {% empty %}

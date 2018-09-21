@@ -1,21 +1,33 @@
-<!DOCTYPE html>
-<html >
-<head>
-    <meta charset="UTF-8">
-    <title>注册界面</title>
-</head>
-<body>
-    <form role="form" action="" enctype="multipart/form-data" method="post">
-        {% csrf_token %}
-    	<div>
-    		<label for="username">用户名</label>
-        	<input type="text" name="username" placeholder="name...">
-        </div>
-        <div>
-        	<label  for="password">密码</label>
-        	<input type="text" name="password" placeholder="password...">
-        </div>
-        <button type="submit" class="btn">注册</button>
-    </form>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load staticfiles %}
+<!DOCTYPE HTML>
+{% block title %}注册界面{% endblock %}
+{% block content %}
+
+
+    <div class="tab-content-inner" data-content="login">
+		<form role="form" action="." enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            
+			<div class="row form-group">
+				<div class="col-md-3" style="margin-left: 35%;margin-top: 10%">
+					<label for="username">Username or Email</label>
+					<input type="text" class="form-control" id="username" name="username">
+				</div>
+			</div>
+			<div class="row form-group">
+				<div class="col-md-3" style="margin-left: 35%">
+					<label for="password">Password</label>
+					<input type="password" class="form-control" id="password" name="password">
+				</div>
+			</div>
+
+			<div class="row form-group">
+				<div class="col-md-3" style="margin-left: 35%">
+                    <button onclick="location.href='{% url 'register' %}'" type="submit" style="margin-left: 35%" class="btn">register</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+{% endblock %}

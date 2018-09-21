@@ -44,6 +44,7 @@ class Book(models.Model):
         db_table = 'book'
 
 
+
 class Browser(models.Model):
     id = models.IntegerField(primary_key=True)
     userid = models.ForeignKey('User', models.DO_NOTHING, db_column='userid')
@@ -144,7 +145,7 @@ class Storage(models.Model):
         db_table = 'storage'
 
 
-class Walfare(models.Model):
+class Discount(models.Model):
     id = models.IntegerField(primary_key=True)
     bookid = models.ForeignKey(Book, models.DO_NOTHING, db_column='bookid')
     sale = models.DecimalField(max_digits=5, decimal_places=2)
@@ -152,7 +153,7 @@ class Walfare(models.Model):
     endtime = models.DateTimeField()
 
     class Meta:
-        db_table = 'walfare'
+        db_table = 'discount'
 
 class Picture(models.Model):
     id = models.IntegerField(primary_key=True)

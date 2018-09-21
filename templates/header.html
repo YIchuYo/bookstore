@@ -4,7 +4,11 @@
       <p>Welcome to SmartTech center!</p>
       <div class="right-sec">
         <ul>
-          <li><a href="#.">Login/Register </a></li>
+            {% if usernow %}
+                <li><a href="{% url 'login' %}">{{ usernow }}</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Login/Register </a></li>
+            {% endif %}
           <li><a href="#.">Store Location </a></li>
           <li><a href="#.">FAQ </a></li>
           <li><a href="#.">Newsletter </a></li>
@@ -31,22 +35,15 @@
   </div>
   
   <!-- Header -->
+  <!-- 搜索框的目录 -->
   <header>
     <div class="container">
       <div class="logo"> <a href="index.html"><img src="/static/images/logo.png" alt="" ></a> </div>
       <div class="search-cate">
         <select class="selectpicker">
-          <option> All Categories</option>
-          <option> Home Audio & Theater</option>
-          <option> TV & Video</option>
-          <option> Camera, Photo & Video</option>
-          <option> Cell Phones & Accessories</option>
-          <option> Headphones</option>
-          <option> Video Games</option>
-          <option> Bluetooth & Wireless </option>
-          <option> Gaming Console</option>
-          <option> Computers & Tablets</option>
-          <option> Monitors </option>
+            <option> 书名搜索</option>
+            <option> 出版社搜索</option>
+            <option> 作者搜索</option>
         </select>
         <input type="search" placeholder="Search entire store here...">
         <button class="submit" type="submit"><i class="icon-magnifier"></i></button>
@@ -54,62 +51,41 @@
 
       <!-- Cart Part -->
       <ul class="nav navbar-right cart-pop">
-        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="itm-cont">3</span> <i class="flaticon-shopping-bag"></i> <strong>My Cart</strong> <br>
-          <span>3 item(s) - $500.00</span></a>
+        <li class="dropdown"> <a href={% url 'cart-url' %} class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="itm-cont">{{ carts.count }}</span> <i class="flaticon-shopping-bag"></i> <strong>My Cart</strong> <br>
+          <span>{{ carts.count }} item(s) - ￥{{ carts.summary }}</span></a>
           <ul class="dropdown-menu">
-            <li>
-              <div class="media-left"> <a href="#." class="thumb"> <img src="/static/images/item-img-1-1.jpg" class="img-responsive" alt="" > </a> </div>
-              <div class="media-body"> <a href="#." class="tittle">Funda Para Ebook 7" 128GB full HD</a> <span>250 x 1</span> </div>
-            </li>
-            <li>
-              <div class="media-left"> <a href="#." class="thumb"> <img src="/static/images/item-img-1-2.jpg" class="img-responsive" alt="" > </a> </div>
-              <div class="media-body"> <a href="#." class="tittle">Funda Para Ebook 7" full HD</a> <span>250 x 1</span> </div>
-            </li>
-            <li class="btn-cart"> <a href="#." class="btn-round">View Cart</a> </li>
+              {% for item in carts %}
+              <li>
+                <div class="media-body"> <a href="{% url 'bookinfo'  item.product.id  %}" class="tittle"></a> <span>{{ item.product.name }}</span> </div>
+              </li>
+              {% endfor %}
+            <li class="btn-cart"> <a href="{% url 'cart-url' %}" class="btn-round">View Cart</a> </li>
           </ul>
         </li>
       </ul>
     </div>
+
     <!-- Nav -->
+    <!-- 导航栏的分类 -->
     <nav class="navbar ownmenu">
       <div class="container" id="c1">
 
         <!-- Categories -->
-        <div class="cate-lst"> <a  data-toggle="collapse" class="cate-style" href="#cater"><i class="fa fa-list-ul"></i> Our Categories </a>
+        <div class="cate-lst"> <a  data-toggle="collapse" class="cate-style" href="#cater"><i class="fa fa-list-ul"></i> 图书分类 </a>
           <div class="cate-bar-in">
             <div id="cater" class="collapse">
               <ul>
-                  <li><a href="#."> Home Audio & Theater</a></li>
-                  <li><a href="#."> TV & Video</a></li>
-                  <li><a href="#."> Camera, Photo & Video</a></li>
-                  <li class="sub-menu"><a href="#."> Cell Phones & Accessories</a>
+{#                  传入category参数，然后放置两层吧#}
+                  <li><a href="#">小说</a></li>
+                  <li class="sub-menu"><a href="#">文艺</a>
                     <ul>
-                      <li><a href="#."> TV & Video</a></li>
-                      <li><a href="#."> Camera, Photo & Video</a></li>
-                      <li><a href="#."> Cell Phones & Accessories</a>
+                      <li><a href="#">文学</a></li>
+                      <li><a href="#">传记</a></li>
+                      <li><a href="#">艺术</a></li>
+                      <li><a href="#">摄影</a>
                     </ul>
                   </li>
-                  <li><a href="#."> Headphones</a></li>
-                  <li><a href="#."> Video Games</a></li>
-                  <li class="sub-menu"><a href="#."> Bluetooth & Wireless Speakers</a>
-                    <ul>
-                      <li><a href="#."> TV & Video</a></li>
-                      <li><a href="#."> Camera, Photo & Video</a></li>
-                      <li><a href="#."> Cell Phones & Accessories</a>
-                    </ul>
-                  </li>
-                  <li class="sub-menu"><a href="#."> Gaming Console</a>
-                    <ul>
-                      <li><a href="#."> TV & Video</a></li>
-                      <li><a href="#."> Camera, Photo & Video</a></li>
-                      <li><a href="#."> Cell Phones & Accessories</a>
-                    </ul>
-                  </li>
-                  <li><a href="#."> Computers & Tablets</a></li>
-                  <li><a href="#."> Monitors</a></li>
-                  <li><a href="#."> Home Appliances</a></li>
-                  <li><a href="#."> Office Supplies</a></li>
-                </ul>
+              </ul>
             </div>
           </div>
         </div>
@@ -121,16 +97,16 @@
         <!-- NAV -->
         <div class="collapse navbar-collapse" id="nav-open-btn">
           <ul class="nav">
-            <li><a href="index.html">Home </a></li>
-			<li><a href="About.html"> About </a></li>
-			<li><a href="ListProducts.html"> List Products </a></li>
-            <li><a href="Product-Details.html"> Product Details </a></li>
-            <li><a href="contact.html"> Contact </a></li>
+            <li><a href="{% url 'index' %}"> 首页 </a></li>
+			<li><a href="{% url 'listbooks' %}"> 图书列表 </a></li>
+            <li><a href="{% url 'cart-url' %}"> 购物车 </a></li>
+            <li><a href="About.html"> 关于 </a></li>
+            <li><a href="contact.html"> 联系我们 </a></li>
           </ul>
         </div>
 
         <!-- NAV RIGHT -->
-        <div class="nav-right"> <span class="call-mun"><i class="fa fa-phone"></i> <strong>Hotline:</strong> (+100) 123 456 7890</span> </div>
+        <div class="nav-right"> <span class="call-mun"><i class="fa fa-phone"></i> <strong>Phone:</strong> (+100) 123 456 7890</span> </div>
       </div>
     </nav>
   </header>
